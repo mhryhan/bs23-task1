@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: app1
+  name: app1
+spec:
+  selector:
+    matchLabels:
+      app: app1
+  template:
+    metadata:
+      labels:
+        app: app1
+    spec:
+      nodeSelector:
+        kubernetes.io/hostname: bs23-test-worker
+      containers:
+      - image: mhryhan/app1
+        name: app1
+        envFrom:
+        - configMapRef:
+            name: app1-config
+        ports:
+        - containerPort: 8000
